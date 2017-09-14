@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HardwareInfoObtainer", "HardwareInfoObtainer.vcxproj", "{871EA2DA-7BA2-4DE0-BE99-4B79FE337C52}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{871EA2DA-7BA2-4DE0-BE99-4B79FE337C52}.Debug|Win32.ActiveCfg = Debug|Win32
+		{871EA2DA-7BA2-4DE0-BE99-4B79FE337C52}.Debug|Win32.Build.0 = Debug|Win32
+		{871EA2DA-7BA2-4DE0-BE99-4B79FE337C52}.Release|Win32.ActiveCfg = Release|Win32
+		{871EA2DA-7BA2-4DE0-BE99-4B79FE337C52}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
