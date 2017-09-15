@@ -202,11 +202,25 @@ void CHardwareInfoObtainerDlg::OnBnClickedOk()
 	std::string strHarddiskID = HardwareInfoHelper::GetHarddiskID();
 	std::string strNetMacID = HardwareInfoHelper::GetNetMacID();
 
-	CString strInfo;
-	strInfo.Format(_T("MotherBoard:\n%s\nCPUID:\n%s\nHarddisk:\n%s\nNetMacID:\n%s\n"),
-		ConvertStdStringToCString(strMotherBoardID),
-		ConvertStdStringToCString(strCPUID),
-		ConvertStdStringToCString(strHarddiskID),
-		ConvertStdStringToCString(strNetMacID));
-	AfxMessageBox(strInfo);
+	//≤‚ ‘¥˙¬Î
+#if 0
+	CStdioFile file;
+	if (file.Open(_T("e:\\info.txt"), CFile::modeCreate | CFile::modeWrite))
+	{
+		int i = 0;
+		while (i++ < 999)
+		{
+			CString strInfo;
+			strInfo.Format(_T("MotherBoard:\r\n%s\r\nCPUID:\r\n%s\r\nHarddisk:\r\n%s\r\nNetMacID:\r\n%s\r\n"),
+				ConvertStdStringToCString(strMotherBoardID),
+				ConvertStdStringToCString(strCPUID),
+				ConvertStdStringToCString(strHarddiskID),
+				ConvertStdStringToCString(strNetMacID));
+			file.WriteString(_T("\r\n"));
+			file.WriteString(strInfo);
+			file.WriteString(_T("\r\n"));
+		}
+		file.Close();
+	}
+#endif
 }
