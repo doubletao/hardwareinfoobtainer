@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HardwareInfoObtainer", "HardwareInfoObtainer.vcxproj", "{871EA2DA-7BA2-4DE0-BE99-4B79FE337C52}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HardwareInfoObtainer", "Src\HardwareInfoObtainer.vcxproj", "{871EA2DA-7BA2-4DE0-BE99-4B79FE337C52}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -6,11 +6,52 @@
 #include "HardwareInfoObtainer.h"
 #include "HardwareInfoObtainerDlg.h"
 #include "afxdialogex.h"
+#include "HardwareInfoHelper.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
+std::string ConverCStringToStdString( CString & cstrValue )
+{
+	std::string strRet;
+	strRet.clear();
+	int nSize = ::WideCharToMultiByte(CP_UTF8, 0, cstrValue.GetBuffer(), -1, NULL, 0, NULL, NULL);
+	char * szcSrc = new char[nSize];
+	memset(szcSrc, 0, sizeof(char) * nSize);
+	::WideCharToMultiByte(CP_UTF8, 0, cstrValue.GetBuffer(), -1, szcSrc, nSize, NULL, NULL);
+	strRet = szcSrc;
+	delete[] szcSrc;
+	szcSrc = NULL;
+	return strRet;
+}
+
+std::string ConverCStringToStdString( CString & cstrValue, DWORD dwFormatW)
+{
+	std::string strRet;
+	strRet.clear();
+	int nSize = ::WideCharToMultiByte(dwFormatW, 0, cstrValue.GetBuffer(), -1, NULL, 0, NULL, NULL);
+	char * szcSrc = new char[nSize];
+	memset(szcSrc, 0, sizeof(char) * nSize);
+	::WideCharToMultiByte(dwFormatW, 0, cstrValue.GetBuffer(), -1, szcSrc, nSize, NULL, NULL);
+	strRet = szcSrc;
+	delete[] szcSrc;
+	szcSrc = NULL;
+	return strRet;
+}
+
+CString ConvertStdStringToCString( const std::string & strValue )
+{
+	CString cstrRet;
+	cstrRet.Empty();
+	int nLength = ::MultiByteToWideChar(CP_UTF8, 0, strValue.c_str(), -1, NULL,0);
+	TCHAR * szText1 = new TCHAR[nLength+1];
+	::MultiByteToWideChar(CP_UTF8, 0, strValue.c_str(), -1, szText1, nLength+1);
+	cstrRet = szText1;
+	delete[] szText1;
+	szText1 = NULL;
+	return cstrRet;
+}
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
@@ -63,6 +104,7 @@ BEGIN_MESSAGE_MAP(CHardwareInfoObtainerDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDOK, &CHardwareInfoObtainerDlg::OnBnClickedOk)
 END_MESSAGE_MAP()
 
 
@@ -151,3 +193,10 @@ HCURSOR CHardwareInfoObtainerDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CHardwareInfoObtainerDlg::OnBnClickedOk()
+{
+	std::string strMotherBoardID = HardwareInfoHelper::GetMotherBoardID();
+	AfxMessageBox(ConvertStdStringToCString(strMotherBoardID));
+}

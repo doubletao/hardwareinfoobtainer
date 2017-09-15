@@ -41,9 +41,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\bin</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\bin</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -99,6 +101,7 @@
     <None Include="res\HardwareInfoObtainer.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="HardwareInfoHelper.h" />
     <ClInclude Include="HardwareInfoObtainer.h" />
     <ClInclude Include="HardwareInfoObtainerDlg.h" />
     <ClInclude Include="Resource.h" />
@@ -106,6 +109,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="HardwareInfoHelper.cpp" />
     <ClCompile Include="HardwareInfoObtainer.cpp" />
     <ClCompile Include="HardwareInfoObtainerDlg.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -119,4 +123,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="HardwareInfoObtainer.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>
