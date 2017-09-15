@@ -10,13 +10,11 @@ HardwareInfoHelper::~HardwareInfoHelper(void)
 {
 }
 
-std::string HardwareInfoHelper::GetMotherBoardID()
+std::string HardwareInfoHelper::SystemCmdPipeFunc( CString strCMD, std::string cstrEnSearch )
 {
 	std::string strRet;
 	strRet.clear();
 	const long MAX_COMMAND_SIZE = 10000; // 命令行输出缓冲大小     
-	WCHAR szFetCmd[]            = L"wmic BaseBoard get SerialNumber"; // 获取主板序列号命令行   
-	const std::string strEnSearch = "SerialNumber"; // 主板序列号的前导信息  
 
 	HANDLE hReadPipe  = NULL; //读取管道  
 	HANDLE hWritePipe = NULL; //写入管道      
@@ -57,7 +55,7 @@ std::string HardwareInfoHelper::GetMotherBoardID()
 		si.dwFlags      = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;  
 
 		//3.0 创建获取命令行的进程  
-		bret = CreateProcess(NULL, szFetCmd, NULL, NULL, TRUE, 0, NULL, NULL, &si, &pi );  
+		bret = CreateProcess(NULL, strCMD.GetBuffer(), NULL, NULL, TRUE, 0, NULL, NULL, &si, &pi );  
 		if(!bret)  
 		{  
 			break;
@@ -74,7 +72,7 @@ std::string HardwareInfoHelper::GetMotherBoardID()
 		//5.0 查找主板序列号  
 		bret = FALSE;  
 		strBuffer = szBuffer;  
-		ipos = strBuffer.find(strEnSearch);  
+		ipos = strBuffer.find(cstrEnSearch);  
 
 		if (ipos < 0) // 没有找到  
 		{         
@@ -82,7 +80,7 @@ std::string HardwareInfoHelper::GetMotherBoardID()
 		}  
 		else  
 		{  
-			strBuffer = strBuffer.substr(ipos+strEnSearch.length());  
+			strBuffer = strBuffer.substr(ipos+cstrEnSearch.length());  
 		}
 
 		memset(szBuffer, 0x00, sizeof(szBuffer));  
@@ -99,7 +97,7 @@ std::string HardwareInfoHelper::GetMotherBoardID()
 			}  
 		}  
 	} while (0);
- 
+
 	//关闭所有的句柄  
 	CloseHandle(hWritePipe);  
 	CloseHandle(hReadPipe);  
@@ -109,23 +107,22 @@ std::string HardwareInfoHelper::GetMotherBoardID()
 	return strRet;  
 }
 
-std::string HardwareInfoHelper::GetCPUID()
+std::string HardwareInfoHelper::GetMotherBoardID()
 {
-	std::string strRet;
-	strRet.clear();
-	return strRet;
+	return SystemCmdPipeFunc(_T("wmic BaseBoard get SerialNumber"), "SerialNumber");
 }
 
-std::string HardwareInfoHelper::GetStorageID()
+std::string HardwareInfoHelper::GetCPUID()
 {
-	std::string strRet;
-	strRet.clear();
-	return strRet;
+	return SystemCmdPipeFunc(_T("wmic cpu get processorid"), "ProcessorId");
+}
+
+std::string HardwareInfoHelper::GetHarddiskID()
+{
+	return SystemCmdPipeFunc(_T("wmic diskdrive get SerialNumber"), "SerialNumber");
 }
 
 std::string HardwareInfoHelper::GetNetMacID()
 {
-	std::string strRet;
-	strRet.clear();
-	return strRet;
+	return SystemCmdPipeFunc(_T("wmic nicconfig get macaddress"), "MACAddress");
 }
