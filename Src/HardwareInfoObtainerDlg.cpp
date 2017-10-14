@@ -193,14 +193,20 @@ HCURSOR CHardwareInfoObtainerDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
-
-
 void CHardwareInfoObtainerDlg::OnBnClickedOk()
 {
 	std::string strMotherBoardID = HardwareInfoHelper::GetMotherBoardID();
 	std::string strCPUID = HardwareInfoHelper::GetCPUID();
 	std::string strHarddiskID = HardwareInfoHelper::GetHarddiskID();
 	std::string strNetMacID = HardwareInfoHelper::GetNetMacID();
+
+	CString strInfo;
+	strInfo.Format(_T("MotherBoard:\r\n%s\r\nCPUID:\r\n%s\r\nHarddisk:\r\n%s\r\nNetMacID:\r\n%s\r\n"),
+		ConvertStdStringToCString(strMotherBoardID),
+		ConvertStdStringToCString(strCPUID),
+		ConvertStdStringToCString(strHarddiskID),
+		ConvertStdStringToCString(strNetMacID));
+	AfxMessageBox(strInfo);
 
 	//≤‚ ‘¥˙¬Î
 #if 0
